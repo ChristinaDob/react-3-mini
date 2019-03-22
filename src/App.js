@@ -31,16 +31,45 @@ class App extends Component {
   getVehicles() {
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+
+    axios
+      .get('https://joes-autos.herokuapp.com/api/vehicles')
+      .then(res => {
+        toast.success('this was a success');
+        this.setState({
+          vehiclesToDisplay: res.data
+        });
+      })
+      .catch(() => toast.error('this failed'));
   }
 
   getPotentialBuyers() {
     // axios (GET)
     // setState with response -> buyersToDisplay
+    axios
+      .get(`https://joes-autos.herokuapp.com/api/vehicles`)
+      .then(res => {
+        toast.success(`Success`);
+        this.setState({
+          buyersToDisplay: res.data
+        });
+      })
+      .catch(() => toast.error(`Error`));
   }
 
   sellCar(id) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
+    axios
+      .delete(`https://joes-autos.herokuapp.com/api/vehicles/${id}`)
+      .then(res => {
+        console.log(res);
+        toast.success(`Success`);
+        this.setState({
+          vehiclesToDisplay: res.data.vehicles
+        });
+      })
+      .catch(() => toast.error(`Failed`));
   }
 
   filterByMake() {
@@ -60,6 +89,17 @@ class App extends Component {
   updatePrice(priceChange, id) {
     // axios (PUT)
     // setState with response -> vehiclesToDisplay
+
+    axios
+      .put(`https://joes-autos.herokuapp.com/api/vehicles/${id}/${priceChange}`)
+      .then(res => {
+        console.log(res.data.vehicles);
+        toast.success(`Success`);
+        this.setState({
+          vehiclesToDisplay: res.data.vehicles
+        });
+      })
+      .catch(() => toast.error(`Error`));
   }
 
   addCar() {
@@ -73,6 +113,16 @@ class App extends Component {
 
     // axios (POST)
     // setState with response -> vehiclesToDisplay
+    axios
+      .post(`https://joes-autos.herokuapp.com/api/vehicles/`, newCar)
+      .then(res => {
+        console.log(res);
+        toast.success(`Success`);
+        this.setState({
+          vehiclesToDisplay: res.data.vehicles
+        });
+      })
+      .catch(() => toast.error(`Error`));
   }
 
   addBuyer() {
